@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/surfaceyu/edge-tts-go/edgeTTS"
+	"github.com/baohuiming/edge-tts-go/edgeTTS"
 )
 
 var displayShortMap = map[string]string{
