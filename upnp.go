@@ -66,7 +66,7 @@ func serve() {
 		http.ServeFile(w, r, "output.mp3")
 	})
 
-	log.Println("Server started on :8080")
+	log.Println("Server started on http://" + getLocalIp() + ":8080")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		panic(err)
