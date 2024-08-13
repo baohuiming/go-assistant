@@ -1,3 +1,4 @@
 *.exe
 *.mp3
 config.yaml
+.DS_store
