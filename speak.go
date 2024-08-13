@@ -27,11 +27,13 @@ func getSpeakerCode(display string) string {
 func Speak(text string, speaker string, path string) {
 	// edgeTTS.NewTTS(args).AddText(args.Text, args.Voice, args.Rate, args.Volume).Speak()
 	args := edgeTTS.Args{
+		Text:       text,
+		Voice:      getSpeakerCode(speaker),
 		WriteMedia: path,
 	}
 	tts := edgeTTS.NewTTS(args)
 
-	tts.AddTextWithVoice(text, getSpeakerCode(speaker))
+	// tts.AddTextWithVoice(text, getSpeakerCode(speaker))
 
 	tts.Speak()
 }
