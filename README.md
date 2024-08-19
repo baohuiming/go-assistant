@@ -2,6 +2,7 @@ Guide:
 1. [Get A OpenWeatherMap Api Key](https://home.openweather.co.uk/api_keys).
 2. Get LLM api url and key.
 3. Create a `config.yaml` file.
+4. Set up crontab task.
 
 Example of `config.yaml`:
 ```yaml
