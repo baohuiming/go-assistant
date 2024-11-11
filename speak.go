@@ -1,7 +1,10 @@
 package main
 
 import (
-	"github.com/baohuiming/edge-tts-go/edgeTTS"
+	"log"
+	"os"
+
+	edgeTTS "github.com/lib-x/edgetts"
 )
 
 var displayShortMap = map[string]string{
@@ -25,13 +28,24 @@ func getSpeakerCode(display string) string {
 // text: text to speak
 // speaker: speaker name [晓晓, 晓伊, 云健, 云希, 云夏, 云扬]
 func Speak(text string, speaker string, path string) {
-	// edgeTTS.NewTTS(args).AddText(args.Text, args.Voice, args.Rate, args.Volume).Speak()
-	args := edgeTTS.Args{
-		WriteMedia: path,
+	opts := make([]edgeTTS.Option, 0)
+	opts = append(opts, edgeTTS.WithVoice(getSpeakerCode(speaker)))
+	speech, err := edgeTTS.NewSpeech(opts...)
+	if err != nil {
+		log.Fatal(err)
 	}
-	tts := edgeTTS.NewTTS(args)
+	audio, err := os.OpenFile(path, os.O_WRONLY|os.O_APPEND|os.O_TRUNC|os.O_CREATE, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	tts.AddTextWithVoice(text, getSpeakerCode(speaker))
+	err = speech.AddSingleTask(text, audio)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	tts.Speak()
+	err = speech.StartTasks()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
